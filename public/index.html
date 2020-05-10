@@ -3,22 +3,23 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
+    <link href="/img/favicon.png" rel="icon" />
+    <link href="/css/styles.min.css" rel="stylesheet" />
     <title>Chat App</title>
   </head>
   <body>
     <h1>Chat App</h1>
-    <!-- <button id="increment">+1</button>
-    <button id="decriment">-1</button>
-    <button id="reset">reset</button> -->
-
-    <form id="message-form">
-      <input type="text" name="message" placeholder="Message" />
-      <input type="submit" value="Submit" />
-    </form>
-
-    <button id="send-location">Send Location</button>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/chat.js"></script>
+    <div class="centered-form">
+      <div class="centered-form__box">
+        <h1>Join</h1>
+        <form action="/chat.html">
+          <label>Display Name</label>
+          <input type="text" name="username" placeholder="Enter Name" required />
+          <label>Room</label>
+          <input type="text" name="room" placeholder="Room" required />
+          <button>Join</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
