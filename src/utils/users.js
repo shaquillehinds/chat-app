@@ -1,3 +1,4 @@
+const { addUserToRoom, removeUserFromRoom } = require("./rooms");
 const users = [];
 
 // addUser, removeUser, getUser, getUsersInRoom
@@ -11,11 +12,13 @@ const addUser = ({ id, username, room }) => {
   }
 
   // Clean the data
-  username = username.trim().toLowerCase();
+  username = username.trim();
   room = room.trim().toLowerCase();
 
   // Check for existing
-  const existingUser = users.find((user) => user.room === room && user.username === username);
+  const existingUser = users.find(
+    (user) => user.room === room && user.username.toLowerCase() === username.toLowerCase()
+  );
 
   // Validate username
   if (existingUser) {
@@ -27,6 +30,10 @@ const addUser = ({ id, username, room }) => {
   //Store user
   const user = { id, username, room };
   users.push(user);
+
+  //add user to room list
+  addUserToRoom(username, room);
+
   return { user };
 };
 
@@ -34,7 +41,12 @@ const removeUser = (id) => {
   const index = users.findIndex((user) => user.id === id);
 
   if (index !== -1) {
-    return users.splice(index, 1)[0];
+    const user = users.splice(index, 1)[0];
+
+    //remove user from room list
+    removeUserFromRoom(user.username, user.room);
+
+    return user;
   }
 };
 

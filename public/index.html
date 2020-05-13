@@ -5,10 +5,18 @@
     <meta charset="utf-8" />
     <link href="/img/favicon.png" rel="icon" />
     <link href="/css/styles.min.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
     <title>Chat App</title>
   </head>
   <body>
-    <h1>Chat App</h1>
+    <div id="modal" class="modal centered-form"></div>
+    <div id="sidebar" class="chat__sidebar">
+      <div>
+        <h3>Rooms</h3>
+        <p>No Rooms Available</p>
+      </div>
+    </div>
+
     <div class="centered-form">
       <div class="centered-form__box">
         <h1>Join</h1>
@@ -21,5 +29,27 @@
         </form>
       </div>
     </div>
+    <script id="rooms-template" type="text/html">
+      <div >
+        <h3>Rooms</h3>
+        <ul>
+          {{#rooms}}
+            <li>{{.}}<button class="join-button">Join</button></li>
+          {{/rooms}}
+        </ul>
+      </div>
+    </script>
+    <script id="modal-template" type="text/html">
+      <div class="modal__center centered-form__box">
+        <h3>Room {{room}}</h3>
+        <p>Please Enter A Username To Join</p>
+        <form id="username-form">
+          <input name="username" type="text" placeholder="Username">
+          <button id="username-form-button">Join</button>
+        </form>
+      </div>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="js/rooms.js"></script>
   </body>
 </html>

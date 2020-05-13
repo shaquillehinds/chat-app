@@ -5,6 +5,7 @@ const http = require("http");
 const socketio = require("socket.io");
 const { GenerateMessage } = require("./utils/messages");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./utils/users");
+const { rooms } = require("./utils/rooms");
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,13 @@ const io = socketio(server);
 const PORT = process.env.PORT;
 
 app.use(express.static(path.join(__dirname, "../public")));
+
+app.get("/rooms", (req, res) => {
+  if (Object.keys(rooms).length > 0) {
+    return res.send(rooms);
+  }
+  res.status(404).send("No Rooms In Use");
+});
 
 io.on("connection", (socket) => {
   const id = socket.id;
@@ -53,7 +61,8 @@ io.on("connection", (socket) => {
     if (!getUser(id)) {
       return socket.emit("login", "Please sign in");
     }
-    io.to(getUser(id).room).emit("message", new GenerateMessage(message, getUser(id).username));
+    const delivery = new GenerateMessage(message, getUser(id).username);
+    io.to(getUser(id).room).emit("message", delivery);
     callback("Delivered");
   });
   socket.on("sendLocation", ({ longitude, latitude }, acknowledge) => {
