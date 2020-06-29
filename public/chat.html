@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link href="/img/favicon.png" rel="icon" />
     <link href="/css/styles.min.css" rel="stylesheet" />
+    <link href="/css/chat.css" rel="stylesheet" />
     <title>Chat App</title>
   </head>
   <body>
@@ -25,13 +26,23 @@
             />
             <button id="message-form-button" name="submit">Send</button>
           </form>
-          <button id="send-location">Send Location</button>
+          <div id="send_buttons">
+            <label id="send_image_label" for="send_image">
+              <input id="send_image" type="file" />
+            </label>
+            <button id="send-location">Send Location</button>
+            <button id="show_sidebar">Members</button>
+          </div>
         </div>
       </div>
     </div>
 
     <script id="user-template" type="text/html">
-        <h2 class="room-title">{{room}}</h2>
+
+        <div id="sidebar_heading">
+          <h2 class="room-title">{{room}}</h2>
+          <span id="hide_sidebar">X</span>
+        </div>
         <h3 class="list-title">Users</h3>
       <ul id="user" class="users">
           {{#users}}

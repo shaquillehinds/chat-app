@@ -12,13 +12,17 @@
     <div id="modal" class="modal centered-form"></div>
     <div id="sidebar" class="chat__sidebar">
       <div>
-        <h3>Rooms</h3>
+        <div id="sidebar_heading">
+          <h3>Rooms</h3>
+          <span id="hide_sidebar">X</span>
+        </div>
         <p>No Rooms Available</p>
       </div>
     </div>
 
     <div class="centered-form">
       <div class="centered-form__box">
+        <button id="show_sidebar">View Rooms</button>
         <h1>Join</h1>
         <form action="/chat.html">
           <label>Display Name</label>

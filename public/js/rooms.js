@@ -2,6 +2,17 @@ const roomsTemplate = document.getElementById("rooms-template").innerHTML;
 const modalTemplate = document.getElementById("modal-template").innerHTML;
 const $modal = document.getElementById("modal");
 const $sidebar = document.getElementById("sidebar");
+const $showSidebar = document.getElementById("show_sidebar");
+const $hideSidebar = document.getElementById("hide_sidebar");
+
+$showSidebar.addEventListener("click", (e) => {
+  console.log("clicked");
+  $sidebar.classList.toggle("show");
+});
+
+$hideSidebar.addEventListener("click", (e) => {
+  $sidebar.classList.toggle("show");
+});
 
 let rooms = { Empty: "No Rooms" };
 

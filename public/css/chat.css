@@ -1,0 +1,76 @@
+.chat__sidebar {
+  position: absolute;
+  display: none;
+  z-index: 100;
+  flex-direction: column;
+}
+#send_image {
+  max-width: 5rem;
+}
+#send_image_label {
+  position: relative;
+}
+#send_image_label::after {
+  content: "Send Image";
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  height: 118%;
+  width: 100%;
+  background-color: #7c5cbf;
+  left: -0.5rem;
+  top: 0;
+}
+#send_image_label::after:hover {
+  background-color: #6b47b8;
+}
+#send_buttons {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+.chat__main {
+  min-height: 100vh;
+}
+.chat_img {
+  max-height: 16rem;
+  max-width: 16em;
+  object-fit: contain;
+}
+.show {
+  display: flex;
+}
+#sidebar_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  width: 12rem;
+}
+#hide_sidebar {
+  font-size: 2rem;
+  cursor: pointer;
+}
+#show_sidebar {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .compose {
+    display: flex;
+    flex-direction: column;
+  }
+  #message-form {
+    margin-bottom: 0.3rem;
+  }
+  #send_image_label::after {
+    left: 0;
+  }
+  #show_sidebar {
+    margin: 0;
+  }
+}

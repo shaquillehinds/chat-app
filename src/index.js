@@ -75,7 +75,16 @@ io.on("connection", (socket) => {
     );
     acknowledge();
   });
-
+  socket.on("sendImage", (image, acknowledge) => {
+    if (!getUser(id)) {
+      return socket.emit("login", "Pleas sign in");
+    }
+    io.to(getUser(id).room).emit(
+      "image",
+      new GenerateMessage(image.toString("base64"), getUser(id).username)
+    );
+    acknowledge("Image Sent");
+  });
   socket.on("disconnect", () => {
     const user = removeUser(id);
     if (!user) {

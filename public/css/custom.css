@@ -1,5 +1,6 @@
 .chat__sidebar {
   position: absolute;
+  display: none;
 }
 .modal {
   position: fixed;
@@ -21,4 +22,15 @@
 }
 .show {
   display: flex;
+}
+#sidebar_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  width: 12rem;
+}
+#hide_sidebar {
+  font-size: 2rem;
+  cursor: pointer;
 }
