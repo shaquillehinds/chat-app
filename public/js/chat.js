@@ -87,7 +87,7 @@ socket.on("image", async (data) => {
 });
 socket.on("locationMessage", (location) => {
   const html = Mustache.render(locationTemplate, {
-    username: location.username.replace(/^./, data.username[0].toUpperCase()),
+    username: location.username.replace(/^./, location.username[0].toUpperCase()),
     location: location.text,
     createdAt: moment(location.date).format("h:mm a"),
   });
