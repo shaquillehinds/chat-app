@@ -25,7 +25,6 @@ app.get("/rooms", (req, res) => {
 
 io.on("connection", (socket) => {
   const id = socket.id;
-  console.log("new websocket connection");
 
   socket.on("join", ({ username, room }, callback) => {
     const { error, user } = addUser({ id, username, room });

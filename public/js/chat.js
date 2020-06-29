@@ -33,6 +33,9 @@ $sendImage.onchange = (e) => {
   }
 };
 
+//let global name;
+let name;
+
 // Options
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
@@ -54,25 +57,50 @@ const autoscroll = () => {
   // How far have I scrolled?
   const scrollOffset = $messages.scrollTop + visibleHeight;
 
-  if (containerHeight - newMessageHeight <= scrollOffset) {
+  if (containerHeight - newMessageHeight * 2 <= scrollOffset) {
     $messages.scrollTop = $messages.scrollHeight;
   }
 };
+let initialScrollHeight = $messages.scrollHeight;
+const observer = new MutationObserver(function (mutations, me) {
+  const newHeight = mutations[0].target.scrollHeight;
+  if (initialScrollHeight < newHeight) {
+    autoscroll();
+    initialScrollHeight = newHeight;
+    return;
+  }
+});
+observer.observe($messages, {
+  childList: true,
+});
 
 socket.on("message", (data) => {
+  if (data.text.match(/welcome\s/gi) && data.username === "Admin") {
+    name = data.text.replace("Welcome ", "").toLowerCase();
+  }
+  let messageClass, messageWrapperClass;
+  if (name === data.username.toLowerCase()) {
+    messageClass = "messages__user";
+    messageWrapperClass = "messages__user--wrapper";
+  } else {
+    messageClass = "messages__other";
+    messageWrapperClass = "messages__other--wrapper";
+  }
   const html = Mustache.render(messageTemplate, {
     username: data.username.replace(/^./, data.username[0].toUpperCase()),
     message: data.text,
+    messageClass,
+    messageWrapperClass,
     createdAt: moment(data.createdAt).format("h:mm a"),
   });
   $messages.insertAdjacentHTML(`beforeend`, html);
-  autoscroll();
 });
 socket.on("image", async (data) => {
   const imageBufferString = "data:image/jpeg;base64," + data.text;
   const imgElement = document.createElement("img");
   imgElement.src = imageBufferString;
   imgElement.className = "chat_img";
+  if (data.username.toLowerCase() === name) imgElement.classList.add("messages__user--wrapper");
   imgElement.onclick = () => {
     const image = new Image();
     image.src = imageBufferString;
@@ -80,10 +108,10 @@ socket.on("image", async (data) => {
     newWindow.document.write(image.outerHTML);
     newWindow.stop();
   };
-  const p = document.createElement("p");
-  p.appendChild(imgElement);
-  $messages.insertAdjacentElement("beforeend", p);
-  autoscroll();
+  const div = document.createElement("div");
+  div.classList.add("message");
+  div.appendChild(imgElement);
+  $messages.insertAdjacentElement("beforeend", div);
 });
 socket.on("locationMessage", (location) => {
   const html = Mustache.render(locationTemplate, {

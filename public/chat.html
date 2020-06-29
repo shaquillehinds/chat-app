@@ -53,17 +53,19 @@
 
     <script id="message-template" type="text/html">
       <div class="message">
+        <div class={{messageWrapperClass}}>
         <p>
           <span class="message__name">{{username}}</span>
           <span class="message__meta">{{createdAt}}</span>
         </p>
-        <p>{{message}}</p>
+        <p class={{messageClass}}>{{message}}</p>
+      </div>
       </div>
     </script>
 
     <script id="location-template" type="text/html">
       <div class="message">
-        <p>
+        <p class={{messageWrapperClass}}>
           <span class="message__name">{{username}}</span>
           <span class="message__meta">{{createdAt}}</span>
         </p>

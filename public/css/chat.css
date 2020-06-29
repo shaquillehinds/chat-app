@@ -58,7 +58,10 @@
 #show_sidebar {
   margin-left: 0.5rem;
 }
-
+.compose {
+  background-color: #1e1e1e;
+  color: white;
+}
 @media (max-width: 768px) {
   .compose {
     display: flex;
@@ -73,4 +76,40 @@
   #show_sidebar {
     margin: 0;
   }
+}
+#messages {
+  background-color: #1e1e1e;
+}
+#message-form-input {
+  background-color: #2f2f2f;
+  color: white;
+  border: none;
+}
+.message {
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.messages__other {
+  background-color: #2f2f2f;
+  color: white;
+  border-radius: 6px;
+  padding: 0.6rem;
+}
+.messages__user {
+  color: white;
+  border-radius: 6px;
+  padding: 0.6rem;
+  background-color: #ae5cbf;
+}
+.messages__user--wrapper {
+  align-self: flex-end;
+}
+.messages__other--wrapper {
+  align-self: flex-start;
+}
+body {
+  background-color: #1e1e1e;
 }
